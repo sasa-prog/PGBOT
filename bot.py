@@ -6,6 +6,10 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Bot
 
+class butoon_view(discord.ui.View):
+    def __init__(self) -> None:
+        super().__init__(timeout=None)
+
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -24,5 +28,7 @@ async def on_ready():
 @bot.tree.command(name="hello",description="hello")
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message(f"hey{interaction.user.mention}!")
+
+
 
 bot.run("MTA0NzYyMTEyNDA4ODkyNjMyOQ.G4Hzyr.K_FfOOX9IPmiLK6XNgaMdDC1f_CddDa_Flm7Qs")
