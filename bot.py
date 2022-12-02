@@ -29,6 +29,7 @@ async def on_ready():
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message(f"hey{interaction.user.mention}!")
 
-
-
-bot.run("MTA0NzYyMTEyNDA4ODkyNjMyOQ.G4Hzyr.K_FfOOX9IPmiLK6XNgaMdDC1f_CddDa_Flm7Qs")
+with open("Token.0","r",encoding="utf-8") as f:
+    bottoken = f.read()
+    
+bot.run(bottoken)
