@@ -6,6 +6,8 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Bot
 
+import file_utils
+
 colors = []
 
 class button_view(discord.ui.View):
@@ -27,19 +29,13 @@ async def on_ready():
     except Exception as e:
         print(e)
 
+    bottoken = file_utils.read_token()
+    colors = file_utils.read_colors()
+
 @bot.tree.command(name="hello",description="hello")
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message(f"hey{interaction.user.mention}!")
 
-with open("Token.0","r",encoding="utf-8") as f:
-    bottoken = f.read()
-
-with open("Colors.0","r",encoding="utf-8") as color_file:
-    lines = color_file.readLines()
-    for line in lines:
-        line = line.rstrip("\n")
-        if line != "":
-            colors.append(line)
 
 @bot.tree.command(name="color", description="color")
 @app_commands.describe(color_code="設定したい色のカラーコード")
@@ -47,7 +43,7 @@ async def color(interaction: discord.Interaction, color_code:str):
     if color_code not in colors:
         colors.append(color_code)
         await interaction.guild.createRole(name=color_code,colour=discord.Colour.from_str(color_code))
-        
+
     await interaction.user.addRole(color_code)
     await interaction.response.send_message("色を付与しました")
 
