@@ -2,17 +2,16 @@ import discord
 import os
 import asyncio
 import json
+
 from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Bot
 
 import file_utils
 
+
 colors = []
 
-class button_view(discord.ui.View):
-    def __init__(self) -> None:
-        super().__init__(timeout=None)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -32,9 +31,12 @@ async def on_ready():
     bottoken = file_utils.read_token()
     colors = file_utils.read_colors()
 
+
+
 @bot.tree.command(name="hello",description="hello")
 async def hello(interaction: discord.Interaction):
     await interaction.response.send_message(f"hey{interaction.user.mention}!")
+
 
 
 @bot.tree.command(name="color", description="color")
@@ -47,10 +49,14 @@ async def color(interaction: discord.Interaction, color_code:str):
     await interaction.user.addRole(color_code)
     await interaction.response.send_message("色を付与しました")
 
+
+
 @bot.tree.command(name="stop",description="stop")
 async def stop_command(interaction:discord.Interaction):
     await interaction.response.send_message("停止します")
     await bot.close()
+
+
 
 @bot.event
 async def on_disconnect():
@@ -58,4 +64,7 @@ async def on_disconnect():
         for color in colors:
             color_file.write(color + "\n")
         print ("Colors saved.")
+
+
+
 bot.run(bottoken)
