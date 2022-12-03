@@ -47,10 +47,15 @@ async def color(interaction: discord.Interaction, color_code:str):
     await interaction.user.addRole(color_code)
     await interaction.response.send_message("色を付与しました")
 
+@bot.tree.command(name="stop",description="stop")
+async def stop_command(interaction:discord.Interaction):
+    await interaction.response.send_message("停止します")
+    await bot.close()
+
 @bot.event
-async def on_close():
+async def on_disconnect():
     with open("Colors.0", "w",encoding="utf-8") as color_file:
         for color in colors:
             color_file.write(color + "\n")
-            print ("Colors saved.")
+        print ("Colors saved.")
 bot.run(bottoken)
