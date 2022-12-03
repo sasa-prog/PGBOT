@@ -27,8 +27,7 @@ async def on_ready():
         print(f"synced {len(synced)}command(s)")
     except Exception as e:
         print(e)
-
-    bottoken = file_utils.read_token()
+        
     colors = file_utils.read_colors()
 
 
@@ -65,6 +64,7 @@ async def on_disconnect():
             color_file.write(color + "\n")
         print ("Colors saved.")
 
-
+bottoken = file_utils.read_token()
+print(bottoken)
 
 bot.run(bottoken)
