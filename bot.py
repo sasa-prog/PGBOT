@@ -65,6 +65,5 @@ async def on_disconnect():
         print ("Colors saved.")
 
 bottoken = file_utils.read_token()
-print(bottoken)
 
 bot.run(bottoken)
